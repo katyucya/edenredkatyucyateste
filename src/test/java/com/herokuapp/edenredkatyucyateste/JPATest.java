@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.herokuapp.edenredkatyucyateste.dao.inter.InterEmailDAO;
 import com.herokuapp.edenredkatyucyateste.entity.Email;
-@RunWith(SpringRunner.class)
+@SpringBootTest
 class JPATest {
 	@Autowired
 	InterEmailDAO interEmailDAO;
