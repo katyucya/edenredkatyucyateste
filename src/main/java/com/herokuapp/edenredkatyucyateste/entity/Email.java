@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Email implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_email")
 	private Long idEmail;
 
 	private String nome;
