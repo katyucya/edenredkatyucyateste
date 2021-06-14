@@ -35,13 +35,13 @@ public class EmailRest {
 		}
 	}	 	
 	@RequestMapping(value="/emailrest/buscarporid",method = RequestMethod.POST)
-	public  Email buscarPorId(@RequestParam("idEmail") Long id) {
+	public  Email buscarPorId(@RequestParam("idEmail") Integer id) {
 		Email e=interEmailDAO.findById(id).orElse(null);
 		return e;
 	}
 	 
 	@RequestMapping(value="/emailrest/deletar",method = RequestMethod.POST)
-	public  String deletar(@RequestParam("idEmail") Long id) {
+	public  String deletar(@RequestParam("idEmail") Integer id) {
 		 interEmailDAO.deleteById(id); 
 		 Email e=interEmailDAO.findById(id).orElse(null);
 		 if(e==null) {
