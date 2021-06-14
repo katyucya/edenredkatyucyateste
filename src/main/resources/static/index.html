@@ -41,7 +41,7 @@
 	               dataFields: [
 	                   { name: 'idEmail', type: 'int' },
 	                   { name: 'nome', type: 'string'  },
-	                   { name: 'email', type: 'string'  },
+	                   { name: 'correioEmail', type: 'string'  },
 	               ],
 	               id: "idEmail",
 	               url: "/emailrest/lista"
@@ -58,7 +58,7 @@
 	               columns: [
 					  { text: 'ID', dataField: 'idEmail',cellsalign: 'right', width:"25%" },
 	                 { text: 'Nome', dataField: 'nome', width: "40%" },
-	                 { text: 'E-mail', dataField: 'email', width: "35%" }         
+	                 { text: 'E-mail', dataField: 'correioEmail', width: "35%" }         
 	             ]
 	           });	
 	           
@@ -198,11 +198,11 @@
 				  form.validate({
 					  rules: {
 						  	 nome: {required: true} ,
-						  	 sigla: {required: true} 
+						  	 correioEmail: {required: true} 
 						   },
 						   messages: {
 						     nome: "Informe o nome!",
-						     email: "Informe a e-mail!"
+						     correioEmail: "Informe a e-mail!"
 						   },
 						   tooltip_options: {
 							   nome: {placement: 'left',trigger:'focus'} 
@@ -270,9 +270,9 @@
 						name="nome" placeholder="Nome"  required="required" /> 
 				</div>
 				<div class="form-group">
-					<label for="email"><span class="req">*</span>E-mail</label> 
-					<input type="text" class="form-control required" data-placement="bottom" id="email"
-						name="email" placeholder="E-mail"  required="required"  /> 
+					<label for="correioEmail"><span class="req">*</span>E-mail</label> 
+					<input type="text" class="form-control required" data-placement="bottom" id="correioEmail"
+						name="correioEmail" placeholder="E-mail"  required="required"  /> 
 				</div>	
 				 
 				  
