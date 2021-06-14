@@ -1,7 +1,7 @@
 # edenredkatyucyateste
 Teste da empresa Edenred
 
-O projeto foi criado na linguagem 
+O projeto foi criado na linguagens e frameworks:
 Java
 Spring Boot
 Maven
