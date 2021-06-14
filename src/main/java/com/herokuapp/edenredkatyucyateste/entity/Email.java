@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Email implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
+	@SequenceGenerator(name = "seq_email", sequenceName = "seq_email", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_email")
 	private Long idEmail;
 
