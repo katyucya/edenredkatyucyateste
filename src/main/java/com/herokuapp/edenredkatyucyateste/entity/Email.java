@@ -12,7 +12,7 @@ public class Email implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idMensagem;
+	private Long idEmail;
 
 	private String nome;
 	private String email;
@@ -34,12 +34,12 @@ public class Email implements Serializable {
 		this.email = email;
 	}
 
-	public Long getIdMensagem() {
-		return idMensagem;
+	public Long getIdEmail() {
+		return idEmail;
 	}
 
-	public void setIdMensagem(Long idMensagem) {
-		this.idMensagem = idMensagem;
+	public void setIdEmail(Long idEmail) {
+		this.idEmail = idEmail;
 	}
 
 
