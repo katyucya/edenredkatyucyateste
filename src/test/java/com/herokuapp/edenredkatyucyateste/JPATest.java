@@ -30,37 +30,6 @@ class JPATest {
 	      .isEqualTo(emailBusca.getNome());
 	}
 	
-	@Test
-	void testeAlterar() {
-		Email e=new Email();
-		e.setNome("Fulano");
-		e.setCorreioEmail("fulano@gmail.com");
-		interEmailDAO.save(e);
-		Email emailBusca=interEmailDAO.findOne((Example<Email>) e).orElse(new Email());
-		emailBusca.setNome("Ciclano");
-		interEmailDAO.save(emailBusca);
-		Email emailBuscaSalvo=interEmailDAO.findOne((Example<Email>) e).orElse(new Email());
-		assertThat(emailBuscaSalvo.getNome())
-	      .isNotEqualTo(emailBusca.getNome());
-				 
-	    
-	}
 	
-	@Test
-	void testeDeletar() {
-		Email e=new Email();
-		e.setNome("Katyucya");
-		e.setCorreioEmail("katyucya@gmail.com");
-		
-		interEmailDAO.save(e);
-		
-		Email emailBusca=interEmailDAO.findOne((Example<Email>) e).orElse(new Email());
-	      
-		interEmailDAO.deleteById(emailBusca.getIdEmail());
-		
-		Email deletado= interEmailDAO.findOne((Example<Email>) e).orElse(new Email());
-	    // then
-	    assertThat(deletado.getIdEmail()==null);
-	}
 
 }
