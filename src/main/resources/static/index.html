@@ -31,6 +31,7 @@
 		<script type="text/javascript" src="js/jquery.deserialize.js"></script>
 		
 		<script type="text/javascript">
+		  	   
 		   $( document ).ready(function() {
 			   $('[data-toggle="tooltip"]').tooltip( {animation: true, placement: 'bottom', trigger: 'focus'});
 			   //Data Table
@@ -39,11 +40,9 @@
 	               dataType: "json",
 	               headers: createAuthorizationTokenHeader(),
 	               dataFields: [
-	                   { name: 'idEmail', type: 'int' },	                  
-	                   { name: 'nome', type: 'string'  } ,
-	                   { name: 'texto', type: 'string'  } 	 ,
-	                   { name: 'email', type: 'string'  }                     
-	                    
+	                   { name: 'idEmail', type: 'int' },
+	                   { name: 'nome', type: 'string'  },
+	                   { name: 'email', type: 'string'  },
 	               ],
 	               id: "idEmail",
 	               url: "/emailrest/lista"
@@ -59,11 +58,9 @@
 	               columnsResize: true,
 	               columns: [
 					  { text: 'ID', dataField: 'idEmail',cellsalign: 'right', width:"25%" },
-					 { text: 'Nome', dataField: 'nome', width: "50%" } ,
-	                 { text: 'Texto', dataField: 'texto', width: "50%" } ,
-	                 { text: 'E-mail', dataField: 'email', width: "50%" } 
-	                
-					 ]
+	                 { text: 'Nome', dataField: 'nome', width: "40%" },
+	                 { text: 'E-mail', dataField: 'email', width: "35%" }         
+	             ]
 	           });	
 	           
 	           $("#dataTableEmail").on('rowSelect', function (event) {
@@ -79,24 +76,88 @@
 	   			           {       	    	
 	   			                	    
 	   			        	   $("#formEmail").deserialize(data)	;
-	   			        	   ctrBotoes(false);
-	   			        	   			        	    
+	   			        	    ctrBotoes(false);
+	   			        	   
 	   			           }
 	   			         });
 	              	
 	           });   	
 	           function ctrBotoes(incluir){/*função para controlar os botões*/
-	   			 $( "#btnDeletar" ).prop( "disabled", incluir);	   	 
-	   			$( "#btnDeletar" ).css( "display", (!incluir)?"":"none"  );	   			
-	       	   }
-	   	       ctrBotoes(true);
-	              	
-			   
-			    	
+		   			$( "#btnIncluir" ).prop( "disabled",!incluir);
+		   			$( "#btnAlterar" ).prop( "disabled", incluir);
+		   			$( "#btnDeletar" ).prop( "disabled", incluir);
+		   			$( "#btnIncluir" ).css( "display", (incluir)?"":"none" );
+		   			$( "#btnAlterar" ).css( "display", (!incluir)?"":"none" );
+		   			$( "#btnDeletar" ).css( "display", (!incluir)?"":"none"  );	   			
+		       	   }
+	           ctrBotoes(true);
+			   $("#btnIncluir").click(function() {
+				    if(!confirm("Deseja realmente incluir?"))
+				    	return ;
+				    if(!validarForm())
+				    	return ;		
+				     //validar os dados
+			    	 //serializa idEstado=1&nome=DIego
+			    	 parametro=$("#formEstado").serialize();
+				     //requisição
+			    	 $.ajax({
+				           type: "POST", 
+				           url:  "/estadorest/salvar",
+				           data:  parametro, // serializes the form's elements.
+				           headers: createAuthorizationTokenHeader(),
+				           success: function(resultado)
+				           { 
+				        	   if(resultado=='ok'){
+				        		   alert("Registro incluído com sucesso!");
+				        		   $("#formEmail")[0].reset();
+				        		   ctrBotoes(true);
+				        	   }else{
+				        		   alert("Não foi possível incluir!");
+				        	   }			        	   
+				        	   
+				        	   recarregarGrid();
+				           },
+				           error:function(xhr, erro){
+				        	   alert("Não foi possível incluir!");
+				        	   console.debug(xhr); console.debug(error);
+				           }
+				         });
+			     });
+			   $("#btnAlterar").click(function() {
+				   if(!confirm("Deseja realmente alterar?"))
+				    	return ;			    	 
+				     //validar os dados
+			    	 //serializa idEstado=1&nome=DIego
+			    	 parametro=$("#formEmail").serialize();
+				     //requisição
+			    	 $.ajax({
+				           type: "POST", 
+				           url:  "/estadorest/salvar",
+				           data:  parametro, // serializes the form's elements.
+				           headers: createAuthorizationTokenHeader(),
+				           success: function(resultado)
+				           { 
+				        	   if(resultado=='ok'){
+				        		   alert("Registro alterado com sucesso!");
+				        		   $("#formEmail")[0].reset();
+				        		   ctrBotoes(true);
+				        	   }else{
+				        		   alert("Não foi possível alterar!");
+				        	   }			        	   
+				        	   
+				        	   recarregarGrid();
+				           },
+				           error:function(xhr, erro){
+				        	   alert("Não foi possível alterar!");
+				        	   console.debug(xhr); console.debug(error);
+				           }
+				         });
+			     });	
 			   $("#btnDeletar").click(function() {
 				   if(!confirm("Deseja realmente excluir?"))
 				    	return ;			    	 
-				    
+				     //validar os dados
+			    	 //serializa idEstado=1&nome=Katyucya
 			    	 parametro="idEmail="+$("#idEmail").val();
 				     //requisição
 			    	 $.ajax({
@@ -131,12 +192,40 @@
 			   $("#btnSair").click(function() {
 			    	 
 			     });	
-			  
 			   function recarregarGrid(){
-				   $("#dataTableEmail").jqxDataTable('updateBoundData');
+				   $("#dataTableEstado").jqxDataTable('updateBoundData');
 			   }
 			  
-			  
+			   function validarForm(){
+				  var form= $("#formEmail");				  
+				   
+				  form.validate({
+					  rules: {
+						  	 nomeEstado: {required: true} ,
+						  	 sigla: {required: true} 
+						   },
+						   messages: {
+						     nome: "Informe o nome!",
+						     email: "Informe a e-mail!"
+						   },
+						   tooltip_options: {
+							   nomeEstado: {placement: 'left',trigger:'focus'} 
+						   } ,
+					   errorElement: 'em',
+				       errorPlacement: function (error, element) {
+					    	   $('[data-toggle=\'tooltip\']').removeAttr('name');
+					    	   error.addClass('help-block');
+					    	   error.insertAfter(element);
+				            },
+				            highlight: function (element, errorClass, validClass) {
+				              $(element).parents('.col-md-12').addClass('has-error').removeClass('has-success');
+				            },
+				            unhighlight: function (element, errorClass, validClass) {
+				              $(element).parents('.col-md-12').addClass('has-success').removeClass('has-error');
+				            }
+				   });
+				  return form.valid(); 
+			   }
 		   });
 		</script>
 		<style>
@@ -155,7 +244,12 @@
 			 <nav class="navbar navbar-default">
 			  <div class="container-fluid">
 			    <div class="navbar-header" style="margin-top:6px;">
-			    
+			        <button type="button"   id="btnIncluir"  title="Botão Incluir!!">
+					     <img src="img/btnIncluir.png" />
+					</button>
+					<button type="button"   id="btnSalvar"  title="Botão Alterar!!">
+					     <img src="img/btnSalvar.png" />
+					</button>
 					<button type="button"   id="btnDeletar"  title="Botão Deletar!!">
 					     <img src="img/btnDeletar.png" />
 					</button>
@@ -177,18 +271,14 @@
 				<div class="form-group">
 					<label for="nome"><span class="req">*</span>Nome</label> 
 					<input type="text" class="form-control required" data-placement="bottom" id="nome"
-						name="nome" placeholder="Nome"  required="required" readonly="readonly"/> 
+						name="nome" placeholder="Nome"  required="required" /> 
 				</div>
 				<div class="form-group">
 					<label for="email"><span class="req">*</span>E-mail</label> 
 					<input type="text" class="form-control required" data-placement="bottom" id="email"
-						name="email" placeholder="E-mail"  required="required" readonly="readonly"/> 
+						name="email" placeholder="E-mail"  required="required"  /> 
 				</div>	
-				<div class="form-group">
-					<label for="celular"><span class="req">*</span>Celular</label> 
-					<input type="text" class="form-control required" data-placement="bottom" id="celular"
-						name="celular" placeholder="Celular"  required="required" readonly="readonly"/> 
-				</div>		
+				 
 				  
 				<div class="form-group">
 				<span class="req">*Campos de preenchimento obrigatório!</span>  
