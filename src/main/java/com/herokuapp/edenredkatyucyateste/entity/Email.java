@@ -17,7 +17,7 @@ public class Email implements Serializable {
 	private Long idEmail;
 
 	private String nome;
-	private String email;
+	private String correioEmail;
 
 
 	public String getNome() {
@@ -28,12 +28,12 @@ public class Email implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCorreioEmail() {
+		return correioEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String correioEmail) {
+		this.correioEmail = correioEmail;
 	}
 
 	public Long getIdEmail() {
