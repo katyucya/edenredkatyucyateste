@@ -32,7 +32,7 @@ public class Email implements Serializable {
 		return correioEmail;
 	}
 
-	public void setEmail(String correioEmail) {
+	public void setCorreioEmail(String correioEmail) {
 		this.correioEmail = correioEmail;
 	}
 
