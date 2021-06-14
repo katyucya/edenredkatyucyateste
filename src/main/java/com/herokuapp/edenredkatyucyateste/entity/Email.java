@@ -14,7 +14,7 @@ public class Email implements Serializable {
 	@Id
 	@SequenceGenerator(name = "seq_email", sequenceName = "seq_email", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_email")
-	private Long idEmail;
+	private Integer idEmail;
 
 	private String nome;
 	private String correioEmail;
@@ -36,11 +36,11 @@ public class Email implements Serializable {
 		this.correioEmail = correioEmail;
 	}
 
-	public Long getIdEmail() {
+	public Integer getIdEmail() {
 		return idEmail;
 	}
 
-	public void setIdEmail(Long idEmail) {
+	public void setIdEmail(Integer idEmail) {
 		this.idEmail = idEmail;
 	}
 
