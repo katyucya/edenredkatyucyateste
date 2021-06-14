@@ -1,3 +1,4 @@
+
 /**
  * @preserve
  * jQuery Validation Bootstrap Tooltip extention v0.10.2
